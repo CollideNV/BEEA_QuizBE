@@ -30,7 +30,7 @@ public class QuestionServiceTest {
 
 
     @Test
-    void saveQuestion_Should_Save_Question_Correctly(){
+    public void saveQuestion_Should_Save_Question_Correctly(){
         QuestionEntity question = new QuestionEntity();
 
         questionService.saveQuestion(question);
