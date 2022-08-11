@@ -1,43 +1,48 @@
 package be.bewire.quiz.controller;
 
 import be.bewire.quiz.model.Question;
-import be.bewire.quiz.service.QuestionService;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpStatus;
+import be.bewire.quiz.repository.QuizRepository;
+import be.bewire.quiz.repository.entity.QuestionEntity;
+import be.bewire.quiz.repository.entity.QuizEntity;
+import lombok.AllArgsConstructor;
+import org.dozer.DozerBeanMapper;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
+
+import javax.persistence.EntityNotFoundException;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("/question")
-@Slf4j
+@RequestMapping("/quiz")
+@AllArgsConstructor
 public class QuestionController {
 
-    private final QuestionService questionService;
+    private final QuizRepository quizRepository;
 
-    public QuestionController(QuestionService questionService) {
-        this.questionService = questionService;
+    private final DozerBeanMapper mapper = new DozerBeanMapper();
+
+    @DeleteMapping("/{quizId}/question/{questionId}")
+    @Transactional
+    public void deleteQuestion(@PathVariable String quizId, @PathVariable String questionId) {
+        QuizEntity quiz = quizRepository.findById(quizId).orElseThrow(() -> new EntityNotFoundException("QuizEntity for id " + quizId + " not found"));
+        quiz.deleteQuestion(questionId);
+        quizRepository.save(quiz);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteQuestion(@PathVariable String id){
-        try{
-            this.questionService.deleteQuestion(id);
-        }catch(Exception e){
-            throw new ResponseStatusException(
-                    HttpStatus.NOT_FOUND, "entity not found"
-            );
-        }
+    @PatchMapping("/{quizId}/question/{questionId}")
+    @Transactional
+    public void updateQuestion(@PathVariable String quizId, @PathVariable String questionId, @RequestBody Question question) {
+        QuizEntity quiz = quizRepository.findById(quizId).orElseThrow(() -> new EntityNotFoundException("QuizEntity for id " + quizId + " not found"));
+        quiz.updateQuestion(questionId, mapper.map(question, QuestionEntity.class));
+        quizRepository.save(quiz);
     }
 
-    @PatchMapping("/{id}")
-    public void updateQuestion(@PathVariable String id, @RequestBody Question question) throws Exception {
-        this.questionService.updateQuestion(id, question);
-    }
-
-    @PostMapping("/{id}")
-    public String addQuestionToQuiz(@PathVariable String id, @RequestBody Question question) throws Exception {
-        return this.questionService.addQuestionToQuiz(id, question);
+    @PatchMapping("/{quizId}/question")
+    @Transactional
+    public void addQuestionToQuiz(@PathVariable String quizId, @RequestBody Question question) {
+        QuizEntity quiz = quizRepository.findById(quizId).orElseThrow(() -> new EntityNotFoundException("QuizEntity for id " + quizId + " not found"));
+        quiz.addQuestion(mapper.map(question, QuestionEntity.class));
+        quizRepository.save(quiz);
     }
 
 }

@@ -14,6 +14,7 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.util.List;
+import java.util.UUID;
 
 @Entity(name = "question")
 @NoArgsConstructor
@@ -21,8 +22,6 @@ import java.util.List;
 @Setter
 public class QuestionEntity {
     @Id
-    @GeneratedValue(generator="system-uuid")
-    @GenericGenerator(name="system-uuid", strategy = "uuid")
     private String id;
     @NotBlank(message = "Question is required")
     @Size(min = 1, max = 300)
@@ -37,8 +36,4 @@ public class QuestionEntity {
     @OneToMany(mappedBy = "questionEntity")
     @NotBlank(message = "Answer is required")
     private List<AnswerEntity> answers;
-    @JsonBackReference
-    @ManyToOne
-    @NotBlank(message = "Quiz entity is required")
-    private QuizEntity quizEntity;
 }
