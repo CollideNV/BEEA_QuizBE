@@ -32,5 +32,4 @@ public class QuizController {
         return mapper.map(quiz, Quiz.class);
     }
 
-
 }

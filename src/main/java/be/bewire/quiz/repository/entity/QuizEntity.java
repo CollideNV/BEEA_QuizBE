@@ -23,7 +23,7 @@ import java.util.UUID;
 @Setter
 public class QuizEntity extends AbstractAggregateRoot<QuizEntity> {
     @Id
-    @GeneratedValue(generator = "system-uuid",strategy = GenerationType.AUTO)
+    @GeneratedValue(generator = "system-uuid", strategy = GenerationType.AUTO)
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id = UUID.randomUUID().toString();
     @OneToOne(cascade = {CascadeType.ALL})
@@ -34,7 +34,7 @@ public class QuizEntity extends AbstractAggregateRoot<QuizEntity> {
     @NotBlank(message = "Ending time is required")
     private Date ending;
     @JsonManagedReference
-    @OneToMany(cascade = {CascadeType.ALL},fetch = FetchType.EAGER)
+    @OneToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
     @NotNull
     private List<QuestionEntity> questions;
     @NotBlank(message = "Type is required")
@@ -89,6 +89,10 @@ public class QuizEntity extends AbstractAggregateRoot<QuizEntity> {
     }
 
     public void recalculateDifficulty() {
+        if (questions.size() == 0) {
+            this.difficulty = Difficulty.EASY;
+            return;
+        }
         long easyOccurences = this.questions.stream().filter(q -> q.getDifficulty().equals(Difficulty.EASY)).count();
         double mediumOccurences = (this.questions.stream().filter(q -> q.getDifficulty().equals(Difficulty.MEDIUM)).count()) * 2;
         long hardOccurences = (this.questions.stream().filter(q -> q.getDifficulty().equals(Difficulty.HARD)).count()) * 3;

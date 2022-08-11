@@ -108,6 +108,7 @@ public class QuizControllerTest {
         mvc.perform(get("/quiz/" + returnedQuiz.getId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
+                .andExpect(jsonPath("$.difficulty", is("EASY")))
                 .andExpect(jsonPath("$.questions", hasSize(0)));
 
 
