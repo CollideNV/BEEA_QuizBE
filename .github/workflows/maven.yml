@@ -5,7 +5,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "main","feature/domain-driven-design" ]
+    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
