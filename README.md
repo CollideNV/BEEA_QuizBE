@@ -1,29 +1,29 @@
 # README #
 
-This README would normally document whatever steps are necessary to get your application up and running.
 
 ### What is this repository for? ###
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+* Create A Quiz
+* Add Questions to Quiz
 
 ### How do I get set up? ###
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
+* Install JDK 11+
+* Install Maven
 
 ### Contribution guidelines ###
 
-* Writing tests
-* Code review
-* Other guidelines
+* Write Unit tests for all new Code
+* Pull Requests are required when merging to Main
+* Update Readme with new Functionality
 
 ### Who do I talk to? ###
 
 * Repo owner or admin
 * Other community or team contact
+
+### Documentation ###
+Code is Setup in DDD.
+
+#### Add Question To Quiz ####
+![](documentation/addQuestionToQuiz.png)
