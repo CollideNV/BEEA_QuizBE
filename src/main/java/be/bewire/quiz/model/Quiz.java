@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Quiz {
     private String id;
-    private Leaderboard leaderBoard = new Leaderboard();
+
     @NonNull
     private Date beginning;
     @NonNull
@@ -32,9 +32,6 @@ public class Quiz {
         this.quizImage = newImage;
     }
 
-    public void UpdateLeaderboard(Leaderboard newLeaderBoard){
-        this.leaderBoard = newLeaderBoard;
-    }
 
 
 }

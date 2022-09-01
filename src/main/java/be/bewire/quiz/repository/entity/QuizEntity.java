@@ -26,9 +26,7 @@ public class QuizEntity extends AbstractAggregateRoot<QuizEntity> {
     @GeneratedValue(generator = "system-uuid", strategy = GenerationType.AUTO)
     @GenericGenerator(name = "system-uuid", strategy = "uuid")
     private String id = UUID.randomUUID().toString();
-    @OneToOne(cascade = {CascadeType.ALL})
-    @NotBlank(message = "Leaderboard is required")
-    private LeaderboardEntity leaderBoard;
+
     @NotBlank(message = "Beginning time is required")
     private Date beginning;
     @NotBlank(message = "Ending time is required")
