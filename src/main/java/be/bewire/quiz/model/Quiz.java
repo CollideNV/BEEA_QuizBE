@@ -14,23 +14,26 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Quiz {
     private String id;
+    private Leaderboard leaderBoard = new Leaderboard();
     @NonNull
     private Date beginning;
     @NonNull
     private Date ending;
     private List<Question> questions = new ArrayList<>();
-    @NonNull
-    private TypeQuiz type;
-    @NonNull
-    private String theme;
+    @NonNull private TypeQuiz type;
+    @NonNull private String theme;
     private Difficulty difficulty = Difficulty.EASY;
-    @NonNull
-    private String title;
+    @NonNull private String title;
     private MultipartFile quizImage;
 
 
-    public void UpdateImage(MultipartFile newImage) {
+
+    public void UpdateImage(MultipartFile newImage){
         this.quizImage = newImage;
+    }
+
+    public void UpdateLeaderboard(Leaderboard newLeaderBoard){
+        this.leaderBoard = newLeaderBoard;
     }
 
 
