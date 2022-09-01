@@ -1,11 +1,10 @@
 package be.bewire.quiz.repository;
 
-
-
 import be.bewire.quiz.repository.entity.QuizEntity;
-import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.stereotype.Repository;
+import org.socialsignin.spring.data.dynamodb.repository.EnableScan;
+import org.springframework.data.repository.CrudRepository;
 
-@Repository
-public interface QuizRepository extends JpaRepository<QuizEntity, String>{
+@EnableScan
+public interface QuizRepository extends
+        CrudRepository<QuizEntity, String> {
 }

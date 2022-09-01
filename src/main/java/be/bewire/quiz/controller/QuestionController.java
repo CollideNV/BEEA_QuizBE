@@ -2,7 +2,6 @@ package be.bewire.quiz.controller;
 
 import be.bewire.quiz.model.Question;
 import be.bewire.quiz.repository.QuizRepository;
-import be.bewire.quiz.repository.entity.QuestionEntity;
 import be.bewire.quiz.repository.entity.QuizEntity;
 import lombok.AllArgsConstructor;
 import org.dozer.DozerBeanMapper;
@@ -33,7 +32,7 @@ public class QuestionController {
     @Transactional
     public void updateQuestion(@PathVariable String quizId, @PathVariable String questionId, @RequestBody Question question) {
         QuizEntity quiz = quizRepository.findById(quizId).orElseThrow(() -> new EntityNotFoundException("QuizEntity for id " + quizId + " not found"));
-        quiz.updateQuestion(questionId, mapper.map(question, QuestionEntity.class));
+        quiz.updateQuestion(questionId, mapper.map(question, QuizEntity.Question.class));
         quizRepository.save(quiz);
     }
 
@@ -41,8 +40,7 @@ public class QuestionController {
     @Transactional
     public void addQuestionToQuiz(@PathVariable String quizId, @RequestBody Question question) {
         QuizEntity quiz = quizRepository.findById(quizId).orElseThrow(() -> new EntityNotFoundException("QuizEntity for id " + quizId + " not found"));
-        quiz.addQuestion(mapper.map(question, QuestionEntity.class));
+        quiz.addQuestion(mapper.map(question, QuizEntity.Question.class));
         quizRepository.save(quiz);
     }
-
 }

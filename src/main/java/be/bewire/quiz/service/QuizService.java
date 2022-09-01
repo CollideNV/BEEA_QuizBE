@@ -1,9 +1,7 @@
 package be.bewire.quiz.service;
 
-import be.bewire.quiz.repository.QuizRepository;
 import be.bewire.quiz.repository.entity.QuizEntity;
 import lombok.extern.slf4j.Slf4j;
-import org.dozer.DozerBeanMapper;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.event.TransactionPhase;

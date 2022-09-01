@@ -1,10 +1,7 @@
 package be.bewire.quiz.controller;
 
 
-import be.bewire.quiz.model.Difficulty;
-import be.bewire.quiz.model.Question;
-import be.bewire.quiz.model.Quiz;
-import be.bewire.quiz.model.TypeQuiz;
+import be.bewire.quiz.model.*;
 import be.bewire.quiz.repository.entity.QuizEntity;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.DisplayName;
@@ -22,7 +19,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
 import java.text.SimpleDateFormat;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -44,12 +41,34 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class QuizControllerTest {
     @Autowired
     private ApplicationEvents applicationEvents;
+
+
     @Autowired
     private MockMvc mvc;
+
+
+    @Test
+    void name() throws Exception {
+
+
+        Quiz quiz = new Quiz(new Date(), new Date(), TypeQuiz.LIVE, "theme", "Title");
+
+        // Add Quiz
+        MvcResult mvcResult = mvc.perform(post("/quiz")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(toJson(quiz))
+                        .characterEncoding("utf-8"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        Quiz returnedQuiz = new ObjectMapper().setDateFormat(new SimpleDateFormat("yyyy-MM-dd")).readValue(mvcResult.getResponse().getContentAsString(), Quiz.class);
+        System.out.println(returnedQuiz);
+    }
 
     @DisplayName("Create a basic quiz. Afterwards and and delete a question")
     @Test
     void createQuizAndAddUpdateAndDeleteAQuestion() throws Exception {
+
         Quiz quiz = new Quiz(new Date(), new Date(), TypeQuiz.LIVE, "theme", "Title");
 
         // Add Quiz
@@ -63,9 +82,11 @@ public class QuizControllerTest {
         Quiz returnedQuiz = new ObjectMapper().setDateFormat(new SimpleDateFormat("yyyy-MM-dd")).readValue(mvcResult.getResponse().getContentAsString(), Quiz.class);
 
         // Add Question
+        Question question = new Question("Is dit een vraag?", Difficulty.EASY, 30);
+        question.setAnswers(List.of(new Answer(true, "Ja dit is een vraag.")));
         mvc.perform(patch("/quiz/" + returnedQuiz.getId() + "/question")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(new Question("Is dit een vraag?", Difficulty.EASY, 30))))
+                        .content(toJson(question)))
                 .andExpect(status().isOk());
 
         List<QuizEntity.QuestionAddedEvent> questionAddedEvents = applicationEvents
@@ -81,13 +102,17 @@ public class QuizControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.questions", hasSize(1)))
                 .andExpect(jsonPath("$.questions[0].question", is("Is dit een vraag?")))
+                .andExpect(jsonPath("$.questions[0].answers[0].answer", is("Ja dit is een vraag.")))
                 .andExpect(jsonPath("$.difficulty", is("EASY")))
                 .andReturn();
 
         // Update Question
+        Question updatedQuestion = new Question(questionAddedEvents.get(0).getQuestion().getId(), "Of is dit de vraag?", Difficulty.HARD, questionAddedEvents.get(0).getQuestion().getTimePerQuestion(), new ArrayList<>());
+        updatedQuestion.setAnswers(List.of(new Answer(true, "Ja dit is een vraag.")));
+
         mvc.perform(patch("/quiz/" + returnedQuiz.getId() + "/question/" + addedQuestionId)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(toJson(new Question(addedQuestionId, "Of is dit de vraag?", Difficulty.HARD, 30, Collections.emptyList()))))
+                        .content(toJson(updatedQuestion)))
                 .andExpect(status().isOk());
 
 
@@ -97,6 +122,7 @@ public class QuizControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.questions", hasSize(1)))
                 .andExpect(jsonPath("$.questions[0].question", is("Of is dit de vraag?")))
+                .andExpect(jsonPath("$.questions[0].answers[0].answer", is("Ja dit is een vraag.")))
                 .andExpect(jsonPath("$.difficulty", is("HARD")))
                 .andReturn();
 
