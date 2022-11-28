@@ -1,29 +1,16 @@
-# README #
+# BEEA_QuizBE
 
-This README would normally document whatever steps are necessary to get your application up and running.
+BEEA_QuizBE is part of
+[The Bewire Quiz Application](https://github.com/orgs/CollideNV/projects/4).
 
-### What is this repository for? ###
+Current Code Coverage: ![Coverage](.github/badges/jacoco.svg)
 
-* Quick summary
-* Version
-* [Learn Markdown](https://bitbucket.org/tutorials/markdowndemo)
+Technology used [Quarkus](https://quarkus.io/)
+Lambda AWS
+Dynamodb
+Swagger-UI
 
-### How do I get set up? ###
+If you want to test this locally, you'll have to run
+a [local instance of Dynamodb](https://hub.docker.com/r/amazon/dynamodb-local).
 
-* Summary of set up
-* Configuration
-* Dependencies
-* Database configuration
-* How to run tests
-* Deployment instructions
-
-### Contribution guidelines ###
-
-* Writing tests
-* Code review
-* Other guidelines
-
-### Who do I talk to? ###
-
-* Repo owner or admin
-* Other community or team contact
+Check [The Open Api spec](https://collidenv.github.io/BEEA_QuizBE/).
