@@ -1,0 +1,95 @@
+{
+  "openapi" : "3.0.1",
+  "paths" : {
+    "/quiz-answers" : {
+      "post" : {
+        "operationId" : "add",
+        "requestBody" : {
+          "content" : {
+            "application/json" : {
+              "schema" : {
+                "$ref" : "#/components/schemas/QuizAnswer"
+              }
+            }
+          }
+        },
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : { }
+            }
+          }
+        }
+      }
+    },
+    "/quiz-answers/{quizId}/{questionId}" : {
+      "get" : {
+        "operationId" : "getAnswers",
+        "parameters" : [ {
+          "name" : "quizId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        }, {
+          "name" : "questionId",
+          "in" : "path",
+          "required" : true,
+          "schema" : {
+            "type" : "string",
+            "format" : "uuid"
+          }
+        } ],
+        "responses" : {
+          "default" : {
+            "description" : "default response",
+            "content" : {
+              "application/json" : {
+                "schema" : {
+                  "type" : "array",
+                  "items" : {
+                    "$ref" : "#/components/schemas/QuizAnswer"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components" : {
+    "schemas" : {
+      "QuizAnswer" : {
+        "type" : "object",
+        "properties" : {
+          "answerId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "answerTime" : {
+            "type" : "string",
+            "format" : "date-time"
+          },
+          "primaryKey" : {
+            "type" : "string"
+          },
+          "questionId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "quizId" : {
+            "type" : "string",
+            "format" : "uuid"
+          },
+          "user" : {
+            "type" : "string"
+          }
+        }
+      }
+    }
+  }
+}
