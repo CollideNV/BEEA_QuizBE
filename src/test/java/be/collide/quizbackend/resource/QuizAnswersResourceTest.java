@@ -50,7 +50,7 @@ class QuizAnswersResourceTest {
         UUID answerId = UUID.randomUUID();
         given()
                 .contentType("application/json")
-                .body(QuizAnswer.builder()
+                .body(QuizAnswersResource.QuizAnswerDTO.builder()
                         .quizId(quizId)
                         .questionId(questionId)
                         .answerId(answerId)
@@ -61,7 +61,7 @@ class QuizAnswersResourceTest {
                 .statusCode(200);
         given()
                 .contentType("application/json")
-                .body(QuizAnswer.builder()
+                .body(QuizAnswersResource.QuizAnswerDTO.builder()
                         .quizId(quizId)
                         .questionId(questionId)
                         .answerId(answerId)
@@ -72,7 +72,7 @@ class QuizAnswersResourceTest {
                 .statusCode(200);
         given()
                 .contentType("application/json")
-                .body(QuizAnswer.builder()
+                .body(QuizAnswersResource.QuizAnswerDTO.builder()
                         .quizId(quizId)
                         .questionId(questionId)
                         .answerId(answerId)
@@ -82,10 +82,10 @@ class QuizAnswersResourceTest {
                 .then().log().all()
                 .statusCode(200);
 
-        List<QuizAnswer> retrievedAnswers = given()
+        List<QuizAnswersResource.QuizAnswerDTO> retrievedAnswers = given()
                 .when().get("/quiz-answers/" + quizId + "/" + questionId)
                 .then()
-                .extract().jsonPath().getList(".", QuizAnswer.class);
+                .extract().jsonPath().getList(".", QuizAnswersResource.QuizAnswerDTO.class);
 
 
         assertThat(retrievedAnswers).hasSize(3);
