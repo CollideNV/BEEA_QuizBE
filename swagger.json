@@ -8,7 +8,7 @@
           "content" : {
             "application/json" : {
               "schema" : {
-                "$ref" : "#/components/schemas/QuizAnswer"
+                "$ref" : "#/components/schemas/QuizAnswerDTO"
               }
             }
           }
@@ -51,7 +51,7 @@
                 "schema" : {
                   "type" : "array",
                   "items" : {
-                    "$ref" : "#/components/schemas/QuizAnswer"
+                    "$ref" : "#/components/schemas/QuizAnswerDTO"
                   }
                 }
               }
@@ -63,7 +63,7 @@
   },
   "components" : {
     "schemas" : {
-      "QuizAnswer" : {
+      "QuizAnswerDTO" : {
         "type" : "object",
         "properties" : {
           "answerId" : {
@@ -73,9 +73,6 @@
           "answerTime" : {
             "type" : "string",
             "format" : "date-time"
-          },
-          "primaryKey" : {
-            "type" : "string"
           },
           "questionId" : {
             "type" : "string",
