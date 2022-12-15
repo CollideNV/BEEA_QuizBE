@@ -2,16 +2,17 @@ package be.collide.quizbackend.resource;
 
 import be.collide.quizbackend.domain.QuizAnswer;
 import be.collide.quizbackend.domain.QuizAnswers;
-import lombok.*;
+import lombok.Builder;
+import lombok.Getter;
 import lombok.extern.jackson.Jacksonized;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
-import javax.ws.rs.core.*;
+import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
-import java.util.function.Function;
 
 @Path("/quiz-answers")
 @Produces(MediaType.APPLICATION_JSON)
