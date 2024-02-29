@@ -45,7 +45,6 @@ public class QuizAnswer {
 
 
     @DynamoDbConvertedBy(UUIDToStringConverter.class)
-
     @DynamoDbAttribute("questionId")
     public UUID getQuestionId() {
         return questionId;
