@@ -5,9 +5,9 @@ import be.collide.quizbackend.domain.QuizAnswers;
 import lombok.*;
 import lombok.extern.jackson.Jacksonized;
 
-import javax.inject.Inject;
-import javax.ws.rs.*;
-import javax.ws.rs.core.*;
+import jakarta.inject.Inject;
+import jakarta.ws.rs.*;
+import jakarta.ws.rs.core.*;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.UUID;
