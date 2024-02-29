@@ -66,24 +66,24 @@
       "QuizAnswerDTO" : {
         "type" : "object",
         "properties" : {
-          "answerId" : {
+          "quizId" : {
             "type" : "string",
             "format" : "uuid"
-          },
-          "answerTime" : {
-            "type" : "string",
-            "format" : "date-time"
           },
           "questionId" : {
             "type" : "string",
             "format" : "uuid"
           },
-          "quizId" : {
+          "answerId" : {
             "type" : "string",
             "format" : "uuid"
           },
           "user" : {
             "type" : "string"
+          },
+          "answerTime" : {
+            "type" : "string",
+            "format" : "date-time"
           }
         }
       }
