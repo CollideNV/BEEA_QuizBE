@@ -2,7 +2,7 @@ package be.collide.quizbackend.resource;
 
 import be.collide.quizbackend.domain.QuizAnswer;
 import io.quarkus.test.junit.QuarkusTest;
-import org.assertj.core.api.ListAssert;
+import jakarta.inject.Inject;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -10,7 +10,6 @@ import software.amazon.awssdk.enhanced.dynamodb.DynamoDbEnhancedClient;
 import software.amazon.awssdk.enhanced.dynamodb.DynamoDbTable;
 import software.amazon.awssdk.enhanced.dynamodb.TableSchema;
 
-import jakarta.inject.Inject;
 import java.util.List;
 import java.util.UUID;
 
